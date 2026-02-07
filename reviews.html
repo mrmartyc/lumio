@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komunita | LUMIO</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+    <link rel="manifest" href="site.webmanifest">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050505;
+            --text: #ffffff;
+            --card-bg: #111;
+            --accent: #2997ff;
+            --font: 'Manrope', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER --- */
+        nav {
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #222;
+            background: rgba(5,5,5,0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo { font-weight: 700; color: #fff; text-decoration: none; }
+        .nav-right a { color: #888; text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
+        .nav-right a:hover { color: #fff; }
+
+        /* --- HERO --- */
+        .reviews-hero {
+            text-align: center;
+            padding: 80px 20px 40px;
+        }
+        .rating-big { font-size: 4rem; font-weight: 700; color: var(--accent); line-height: 1; }
+        .stars { color: #ffbc00; font-size: 1.5rem; margin: 10px 0; }
+        .subtitle { color: #888; max-width: 400px; margin: 0 auto; }
+
+        /* --- MASONRY GRID (Pinterest Style) --- */
+        .masonry-wrapper {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            column-count: 3; /* Počet sloupců */
+            column-gap: 20px;
+        }
+
+        .review-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            break-inside: avoid; /* Zabrání roztržení karty */
+            overflow: hidden;
+            border: 1px solid #222;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .review-card:hover { transform: translateY(-5px); border-color: #444; }
+
+        /* Typ karty: FOTO (simulace) */
+        .card-image {
+            width: 100%;
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .insta-badge {
+            position: absolute;
+            bottom: 10px; right: 10px;
+            background: rgba(0,0,0,0.6);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Typ karty: TEXT */
+        .card-content { padding: 25px; }
+        
+        .user-header { display: flex; align-items: center; margin-bottom: 15px; }
+        .avatar {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: #333;
+            margin-right: 12px;
+            display: flex; justify-content: center; align-items: center;
+            font-weight: 600; font-size: 0.9rem;
+        }
+        .user-info h4 { font-size: 0.95rem; margin-bottom: 2px; }
+        .user-info span { font-size: 0.75rem; color: #888; display: block; }
+        .verified { color: var(--accent); margin-left: 5px; font-size: 0.8rem; }
+
+        .review-text { font-size: 0.95rem; line-height: 1.6; color: #ddd; }
+        .review-stars { color: #ffbc00; font-size: 0.9rem; margin-bottom: 10px; }
+
+        /* Placeholdery pro obrázky (Gradienty) */
+        .img-1 { background: linear-gradient(45deg, #222, #444); } 
+        .img-2 { background: radial-gradient(circle at 30% 30%, #333, #111); }
+        .img-3 { background: linear-gradient(180deg, #1a1a1a, #000); }
+
+        /* --- CTA BOTTOM --- */
+        .join-cta {
+            text-align: center;
+            padding: 80px 20px;
+            border-top: 1px solid #222;
+            margin-top: 40px;
+        }
+        .btn-upload {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            border: 1px solid #444;
+            border-radius: 30px;
+            color: #fff;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .btn-upload:hover { background: #fff; color: #000; }
+
+        /* Responsivita */
+        @media (max-width: 900px) {
+            .masonry-wrapper { column-count: 2; }
+        }
+        @media (max-width: 600px) {
+            .masonry-wrapper { column-count: 1; }
+            .rating-big { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">LUMIO.</a>
+        <div class="nav-right">
+            <a href="index.html">← Zpět na produkt</a>
+        </div>
+    </nav>
+
+    <div class="reviews-hero">
+        <div class="rating-big">4.9</div>
+        <div class="stars">★★★★★</div>
+        <p class="subtitle">Průměrné hodnocení na základě 1 240+ ověřených recenzí od designérů a vývojářů.</p>
+    </div>
+
+    <div class="masonry-wrapper">
+
+        <div class="review-card">
+            <div class="card-content">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"Konečně lampa, která na stole nevypadá jako hračka. Světlo je neuvěřitelně příjemné na oči, i po 10 hodinách kódování."</p>
+                <div class="user-header" style="margin-top: 20px; margin-bottom: 0;">
+                    <div class="avatar" style="background: #4a90e2;">JD</div>
+                    <div class="user-info">
+                        <h4>Jan Dvořák <span class="verified">✓</span></h4>
+                        <span>Software Engineer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="review-card">
+            <div class="card-image img-1" style="height: 300px; display:flex; align-items:center; justify-content:center; color:#555;">
+                [FOTO SETUPU: Minimalistický stůl]
+                <div class="insta-badge">📸 @alex_codes</div>
+            </div>
+            <div class="card-content">
+                <p class="review-text" style="font-size: 0.85rem; color: #888;">"Můj noční setup je kompletní. #lumioone"</p>
+            </div>
+        </div>
+
+        <div class="review-card">
+            <div class="card-content">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"Jako architekt potřebuji vidět barvy přesně. CRI index u Lumio One nelhal. Renderingy na papíře vypadají pod tímto světlem přesně tak, jak mají. Oceňuji těžkou podstavu, lampa se ani nehne."</p>
+                <div class="user-header" style="margin-top: 20px; margin-bottom: 0;">
+                    <div class="avatar" style="background: #e24a4a;">MK</div>
+                    <div class="user-info">
+                        <h4>Marek K. <span class="verified">✓</span></h4>
+                        <span>Architect</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="review-card">
+            <div class="card-image img-2" style="height: 200px; display:flex; align-items:center; justify-content:center; color:#555;">
+                [FOTO: Detail hlavy lampy]
+                <div class="insta-badge">📸 @design.daily</div>
+            </div>
+        </div>
+
+        <div class="review-card">
+            <div class="card-content">
+                <div class="review-stars">★★★★☆</div>
+                <p class="review-text">"Skvělý design, ale uvítal bych delší kabel. Jinak perfektní."</p>
+                <div class="user-header" style="margin-top: 20px; margin-bottom: 0;">
+                    <div class="avatar">TR</div>
+                    <div class="user-info">
+                        <h4>Tomáš R. <span class="verified">✓</span></h4>
+                        <span>Graphic Designer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="review-card">
+            <div class="card-content">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"Přechod z teplého na studené světlo mi reálně pomohl s režimem spánku. Večer už mě nebolí hlava z modrého světla."</p>
+                <div class="user-header" style="margin-top: 20px; margin-bottom: 0;">
+                    <div class="avatar" style="background: #50e3c2; color: #000;">LK</div>
+                    <div class="user-info">
+                        <h4>Lucie Králová <span class="verified">✓</span></h4>
+                        <span>Copywriter</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="join-cta">
+        <h2>Máte už Lumio One?</h2>
+        <p style="color: #888; margin-top: 10px;">Sdílejte svůj setup s hashtagem #LUMIO a objevte se zde.</p>
+        <a href="#" class="btn-upload">Nahrát fotku</a>
+    </div>
+
+</body>
+</html>

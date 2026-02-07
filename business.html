@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Pro firmy | LUMIO</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+    <link rel="manifest" href="site.webmanifest">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { background: #050505; color: #fff; font-family: 'Manrope', sans-serif; margin: 0; }
+        nav { padding: 20px 40px; border-bottom: 1px solid #222; display:flex; justify-content:space-between; }
+        
+        .b2b-hero { padding: 100px 20px; text-align: center; background: radial-gradient(circle at center top, #222, #050505 70%); }
+        h1 { font-size: 3rem; margin-bottom: 20px; }
+        
+        .benefits { display: flex; gap: 40px; max-width: 1000px; margin: 60px auto; flex-wrap: wrap; justify-content: center; }
+        .benefit { background: #111; padding: 30px; border-radius: 12px; border: 1px solid #222; flex: 1; min-width: 250px; }
+        .benefit h3 { color: #2997ff; margin-bottom: 10px; }
+        
+        .form-section { max-width: 600px; margin: 0 auto 100px; padding: 40px; background: #111; border-radius: 16px; }
+        input, textarea, select { width: 100%; background: #050505; border: 1px solid #333; padding: 15px; margin-bottom: 15px; color: #fff; border-radius: 8px; }
+        button { width: 100%; padding: 15px; background: #fff; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; }
+        button:hover { background: #ddd; }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html" style="color:#fff;text-decoration:none;font-weight:700">LUMIO BUSINESS.</a><a href="index.html" style="color:#888;text-decoration:none">Zpět</a></nav>
+
+    <div class="b2b-hero">
+        <h1>Vybavte svůj tým<br>světlem pro produktivitu.</h1>
+        <p style="color:#888; max-width:600px; margin:0 auto;">Lepší světlo znamená lepší soustředění. Nabízíme speciální ceny pro kanceláře, studia a coworkingy.</p>
+    </div>
+
+    <div class="benefits">
+        <div class="benefit">
+            <h3>-20% a více</h3>
+            <h4>Množstevní slevy</h4>
+            <p style="color:#888; font-size:0.9rem">Individuální cenová nabídka při odběru nad 5 kusů.</p>
+        </div>
+        <div class="benefit">
+            <h3>Fakturace</h3>
+            <h4>Odpočet DPH</h4>
+            <p style="color:#888; font-size:0.9rem">Samozřejmostí je fakturace pro plátce DPH v rámci EU.</p>
+        </div>
+        <div class="benefit">
+            <h3>Priorita</h3>
+            <h4>VIP Podpora</h4>
+            <p style="color:#888; font-size:0.9rem">Váš osobní account manager a přednostní vyřízení reklamací.</p>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h2 style="margin-bottom:20px; text-align:center;">Nezávazná poptávka</h2>
+        <form>
+            <input type="text" placeholder="Název firmy">
+            <input type="email" placeholder="Firemní email">
+            <select>
+                <option>Počet kusů: 5-10</option>
+                <option>Počet kusů: 11-50</option>
+                <option>Počet kusů: 50+</option>
+            </select>
+            <textarea rows="4" placeholder="Specifické požadavky..."></textarea>
+            <button>Odeslat poptávku</button>
+        </form>
+    </div>
+</body>
+</html>

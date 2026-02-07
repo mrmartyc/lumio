@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podpora | LUMIO</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+    <link rel="manifest" href="site.webmanifest">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #080808;
+            --surface: #151515;
+            --border: #222;
+            --text: #fff;
+            --accent: #2997ff;
+            --font: 'Manrope', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* Navigace */
+        nav {
+            padding: 20px 40px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+        }
+        .logo { font-weight: 700; color: #fff; text-decoration: none; }
+        .nav-links a { color: #888; text-decoration: none; margin-left: 20px; font-size: 0.9rem; }
+        .nav-links a:hover { color: #fff; }
+
+        /* Hero */
+        .support-hero {
+            text-align: center;
+            padding: 100px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        .support-hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .support-hero p { color: #888; }
+
+        /* Search Bar */
+        .search-container {
+            max-width: 500px;
+            margin: 30px auto 0;
+            position: relative;
+        }
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+        }
+        .search-input:focus { outline: none; border-color: var(--accent); }
+
+        /* Grid */
+        .container {
+            max-width: 1000px;
+            margin: 80px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        /* FAQ Accordion */
+        .section-title { font-size: 1.5rem; margin-bottom: 30px; border-left: 3px solid var(--accent); padding-left: 15px; }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 10px;
+        }
+        .faq-question {
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            color: #fff;
+            padding: 15px 0;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-question::after { content: '+'; font-size: 1.5rem; color: #888; }
+        .faq-question.active::after { content: '-'; }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+        .faq-answer p { padding-bottom: 20px; }
+
+        /* Contact Form */
+        .contact-form {
+            background: var(--surface);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; margin-bottom: 8px; font-size: 0.9rem; color: #aaa; }
+        .form-control {
+            width: 100%;
+            background: #080808;
+            border: 1px solid var(--border);
+            padding: 12px;
+            border-radius: 6px;
+            color: #fff;
+            font-family: inherit;
+        }
+        .form-control:focus { outline: none; border-color: var(--accent); }
+        
+        .btn-submit {
+            background: #fff;
+            color: #000;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.2s;
+        }
+        .btn-submit:hover { background: #ddd; }
+
+        @media (max-width: 768px) {
+            .container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">LUMIO.</a>
+        <div class="nav-links">
+            <a href="specs.html">Specifikace</a>
+            <a href="index.html">Domů</a>
+        </div>
+    </nav>
+
+    <div class="support-hero">
+        <h1>Jak vám můžeme pomoci?</h1>
+        <p>Prohledejte manuály, FAQ nebo nám napište.</p>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Hledat téma (např. párování, reset)...">
+        </div>
+    </div>
+
+    <div class="container">
+        
+        <div>
+            <h2 class="section-title">Časté dotazy</h2>
+            
+            <div class="faq-item">
+                <button class="faq-question">Jak spárovat Lumio s telefonem?</button>
+                <div class="faq-answer"><p>Stáhněte si aplikaci Lumio App. Zapněte Bluetooth, podržte tlačítko na podstavci lampy po dobu 5 sekund, dokud nezačne modře blikat.</p></div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">Jak vyměnit světelný zdroj?</button>
+                <div class="faq-answer"><p>Lumio One používá integrované LED diody s životností 50 000 hodin. Nejsou uživatelsky vyměnitelné, ale vztahuje se na ně 5letá záruka.</p></div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">Podporuje Apple HomeKit?</button>
+                <div class="faq-answer"><p>Ano, Lumio One plně podporuje protokol Matter, takže funguje s Apple Home, Google Home i Alexa.</p></div>
+            </div>
+            
+            <div style="margin-top: 40px;">
+                <h3 style="margin-bottom: 15px; font-size: 1.1rem;">Dokumenty</h3>
+                <a href="#" style="color: var(--accent); text-decoration: none; display: block; margin-bottom: 10px;">↓ Uživatelský manuál (PDF)</a>
+                <a href="#" style="color: var(--accent); text-decoration: none; display: block;">↓ Záruční list (PDF)</a>
+            </div>
+        </div>
+
+        <div>
+            <h2 class="section-title">Napište nám</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" placeholder="vas@email.cz">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Sériové číslo (volitelné)</label>
+                    <input type="text" class="form-control" placeholder="LUM-XXXXX">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Zpráva</label>
+                    <textarea class="form-control" rows="5" placeholder="Popište váš problém..."></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Odeslat zprávu</button>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        // Jednoduchý skript pro Accordion
+        const questions = document.querySelectorAll('.faq-question');
+        
+        questions.forEach(q => {
+            q.addEventListener('click', () => {
+                q.classList.toggle('active');
+                const answer = q.nextElementSibling;
+                if (q.classList.contains('active')) {
+                    answer.style.maxHeight = answer.scrollHeight + "px";
+                } else {
+                    answer.style.maxHeight = 0;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

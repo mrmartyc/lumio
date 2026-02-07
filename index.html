@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMIO ONE | The Future of Light</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="description" content="Inteligentní designová lampa pro maximální soustředění.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- 1. CONFIG & RESET --- */
+        :root {
+            --font-main: 'Manrope', sans-serif;
+            --bg-dark: #050505;
+            --bg-light: #f4f4f4;
+            --text-dark: #ffffff;
+            --text-light: #111111;
+            --accent: #2997ff;
+            --glass: rgba(255, 255, 255, 0.05);
+            --transition-smooth: cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            /* Plynulá změna tématu (Dark/Light) */
+            transition: background-color 0.8s ease, color 0.8s ease;
+            opacity: 0; /* Pro preloader */
+            animation: pageFadeIn 1s ease forwards;
+        }
+
+        @keyframes pageFadeIn { to { opacity: 1; } }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* --- 2. HEADER (Fixed & Glass) --- */
+        .glass-nav {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s ease;
+        }
+
+        .nav-logo {
+            font-weight: 800;
+            font-size: 1.3rem;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { font-size: 0.9rem; font-weight: 500; opacity: 0.7; }
+        .nav-links a:hover { opacity: 1; color: var(--accent); }
+
+        .nav-cta {
+            padding: 8px 24px;
+            background: #fff;
+            color: #000;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: transform 0.2s;
+        }
+        .nav-cta:hover { transform: scale(1.05); }
+
+        /* Light Mode overrides for Nav */
+        body.light-mode .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            color: #000;
+        }
+        body.light-mode .nav-cta { background: #000; color: #fff; }
+
+        /* --- 3. SCROLL STAGE (The Story) --- */
+        .scroll-stage {
+            /* Délka stránky určuje rychlost animace */
+            height: 500vh; 
+            position: relative;
+            z-index: 10;
+        }
+
+        .viewport {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px; /* Klíčové pro 3D */
+        }
+
+        /* --- 4. THE LAMP (CSS 3D Object) --- */
+        .lamp-wrapper {
+            position: relative;
+            z-index: 5;
+            transform-style: preserve-3d;
+            will-change: transform; /* Optimalizace pro prohlížeč */
+        }
+
+        .lamp-head {
+            width: 300px;
+            height: 16px;
+            background: linear-gradient(90deg, #1a1a1a, #444, #1a1a1a);
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            transition: background 0.5s;
+        }
+
+        body.light-mode .lamp-head {
+            background: linear-gradient(90deg, #aaa, #eee, #aaa);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .lamp-bulb {
+            position: absolute;
+            bottom: -2px; left: 5%; width: 90%; height: 3px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 20px 5px rgba(255,255,255,0.5);
+            opacity: 0;
+            will-change: opacity, box-shadow;
+        }
+
+        .lamp-stem {
+            width: 10px; height: 380px;
+            background: linear-gradient(90deg, #111, #333, #111);
+            margin: -6px auto 0;
+            z-index: -1;
+            position: relative;
+        }
+        body.light-mode .lamp-stem { background: linear-gradient(90deg, #888, #ccc, #888); }
+
+        .lamp-base {
+            width: 160px; height: 20px;
+            background: linear-gradient(90deg, #050505, #222, #050505);
+            border-radius: 50%;
+            margin: -6px auto 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+        body.light-mode .lamp-base { 
+            background: linear-gradient(90deg, #999, #ddd, #999); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Volumetric Light (Fog) */
+        .volumetric-light {
+            position: absolute;
+            top: 5px; left: 50%;
+            transform: translateX(-50%);
+            width: 450px; height: 800px;
+            background: radial-gradient(ellipse at top, rgba(255,255,255,0.15), transparent 70%);
+            filter: blur(50px);
+            opacity: 0;
+            pointer-events: none;
+            mix-blend-mode: screen;
+            transform-origin: top center;
+            will-change: opacity, background;
+        }
+
+        /* --- 5. UI LAYERS (Text Slides) --- */
+        .ui-layer {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; /* Umožní scroll skrz text */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+        }
+
+        .story-block {
+            position: absolute;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+            transition: all 0.8s var(--transition-smooth);
+            max-width: 800px;
+            padding: 0 20px;
+            filter: blur(10px); /* Cinematic blur in */
+        }
+
+        .story-block.active { 
+            opacity: 1; 
+            transform: translateY(0) scale(1); 
+            filter: blur(0); 
+        }
+        
+        .story-block.inactive { 
+            opacity: 0; 
+            transform: translateY(-40px) scale(1.05); 
+            filter: blur(10px); 
+        }
+
+        h1 { 
+            font-size: clamp(2.5rem, 6vw, 5.5rem); 
+            margin-bottom: 24px; 
+            line-height: 1.05; 
+            letter-spacing: -0.03em; 
+            font-weight: 700;
+        }
+        
+        p { 
+            font-size: clamp(1rem, 1.5vw, 1.3rem); 
+            opacity: 0.7; 
+            max-width: 580px; 
+            margin: 0 auto; 
+            font-weight: 400; 
+            line-height: 1.6;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border: 1px solid rgba(128,128,128,0.3);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        /* Tlačítko uprostřed CTA */
+        .cta-big {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 18px 50px;
+            background: #fff;
+            color: #000;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            pointer-events: auto; /* Povolení kliku */
+            transition: transform 0.3s;
+        }
+        .cta-big:hover { transform: scale(1.05); }
+        body.light-mode .cta-big { background: #000; color: #fff; }
+
+
+        /* --- 6. FOOTER --- */
+        footer {
+            background-color: #080808;
+            color: #888;
+            padding: 80px 40px 40px;
+            position: relative;
+            z-index: 50; /* Nad lampou pokud by přejela */
+            border-top: 1px solid #222;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand h3 { color: #fff; font-size: 1.5rem; margin-bottom: 15px; }
+        .footer-brand p { font-size: 0.9rem; line-height: 1.6; max-width: 300px; }
+        .footer-col h4 { color: #fff; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1px; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a:hover { color: var(--accent); }
+
+        .footer-bottom {
+            border-top: 1px solid #222;
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- 7. UTILITIES & RESPONSIVE --- */
+        .progress-bar { position: fixed; bottom: 0; left: 0; height: 3px; background: var(--accent); width: 0%; z-index: 200; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; } /* Hamburger menu by bylo další vylepšení */
+            .glass-nav { padding: 0 20px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+            
+            /* Mobilní úprava lampy - posun dolů aby nepřekážela textu */
+            .lamp-wrapper { transform: scale(0.7) translateY(100px); }
+            h1 { font-size: 2.8rem; }
+            
+            /* Vypnutí parallaxu na mobilu pro výkon */
+            .viewport { perspective: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="glass-nav">
+        <a href="#" class="nav-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="margin-right:8px"><circle cx="12" cy="12" r="10"/></svg>
+            LUMIO.
+        </a>
+        <nav class="nav-links">
+            <a href="specs.html">Specifikace</a>
+            <a href="reviews.html">Recenze</a>
+            <a href="about.html">O nás</a>
+            <a href="support.html">Podpora</a>
+        </nav>
+        <a href="#buy" class="nav-cta">Koupit $299</a>
+    </header>
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <div class="scroll-stage" id="stage">
+        <div class="viewport">
+            
+            <div class="lamp-wrapper" id="lampWrapper">
+                <div class="volumetric-light" id="vLight"></div>
+                <div class="lamp-head">
+                    <div class="lamp-bulb" id="bulb"></div>
+                </div>
+                <div class="lamp-stem"></div>
+                <div class="lamp-base"></div>
+            </div>
+
+            <div class="ui-layer">
+                
+                <div class="story-block" id="block1">
+                    <span class="badge">Designed in Prague</span>
+                    <h1>Tma definuje<br>světlo.</h1>
+                    <p>Zapomeňte na stolní lampy, jak je znáte. Lumio One je nástroj pro vaši mysl.</p>
+                </div>
+
+                <div class="story-block" id="block2">
+                    <h1>Lumio One.</h1>
+                    <p>Tělo z jednoho kusu leteckého hliníku. Žádná tlačítka, jen čistý dotyk.</p>
+                </div>
+
+                <div class="story-block" id="block3">
+                    <h1>Deep Focus.</h1>
+                    <p>Klinicky testované světlo o teplotě 6000K, které prokazatelně zvyšuje soustředění a snižuje únavu očí.</p>
+                </div>
+
+                <div class="story-block" id="block4">
+                    <h1>Dokonalý setup.<br>Nyní na dosah.</h1>
+                    <a href="specs.html" class="cta-big">Prozkoumat detaily</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <footer id="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>LUMIO.</h3>
+                <p>Navrhujeme inteligentní osvětlení pro tvůrce, inženýry a vizionáře. Měníme způsob, jakým pracujete.</p>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Produkt</h4>
+                <ul>
+                    <li><a href="specs.html">Lumio One</a></li>
+                    <li><a href="catalog.html">Lumio Air</a></li>
+                    <li><a href="catalog.html">Příslušenství</a></li>
+                    <li><a href="business.html">Pro firmy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Společnost</h4>
+                <ul>
+                    <li><a href="about.html">Příběh značky</a></li>
+                    <li><a href="reviews.html">Komunita</a></li>
+                    <li><a href="about.html">Kariéra</a></li>
+                    <li><a href="support.html">Kontakt</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Podpora</h4>
+                <ul>
+                    <li><a href="support.html">Centrum nápovědy</a></li>
+                    <li><a href="tracking.html">Stav objednávky</a></li>
+                    <li><a href="legal.html">Reklamace</a></li>
+                    <li><a href="support.html">Ke stažení</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>&copy; 2023 Lumio Design s.r.o.</span>
+            <div style="display: flex; gap: 20px;">
+                <a href="legal.html#privacy">Ochrana soukromí</a>
+                <a href="legal.html#terms">Obchodní podmínky</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Reference
+            const stage = document.getElementById('stage');
+            const body = document.body;
+            const lampWrapper = document.getElementById('lampWrapper');
+            const bulb = document.getElementById('bulb');
+            const vLight = document.getElementById('vLight');
+            const progressBar = document.getElementById('progressBar');
+            
+            const blocks = [
+                document.getElementById('block1'),
+                document.getElementById('block2'),
+                document.getElementById('block3'),
+                document.getElementById('block4')
+            ];
+
+            // Stavové proměnné
+            let scrollP = 0; // Aktuální vyhlazená hodnota (0-1)
+            let targetP = 0; // Cílová hodnota podle scrollbaru
+            let mouseX = 0, mouseY = 0; // Parallax
+            
+            // Detekce mobilu (vypneme parallax)
+            const isMobile = window.innerWidth < 768;
+
+            // Mouse Event pro Desktop
+            if (!isMobile) {
+                window.addEventListener('mousemove', (e) => {
+                    // Normalizace na -1 až 1
+                    mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+                    mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+                });
+            }
+
+            // Hlavní smyčka
+            function animate() {
+                // 1. Výpočet scroll pozice
+                // stage.scrollHeight - window.innerHeight je celková dráha
+                const maxScroll = stage.scrollHeight - window.innerHeight;
+                
+                // Ošetření dělení nulou
+                if (maxScroll <= 0) return requestAnimationFrame(animate);
+
+                let rawP = window.scrollY / maxScroll;
+                targetP = Math.max(0, Math.min(1, rawP));
+
+                // 2. LERP (Vyhlazení pohybu) - faktor 0.06 pro "těžký" feeling
+                scrollP += (targetP - scrollP) * 0.06;
+
+                // 3. Vykreslení scény
+                renderScene(scrollP);
+
+                requestAnimationFrame(animate);
+            }
+
+            function renderScene(p) {
+                
+                // A. LIGHT / DARK MODE TRIGGER
+                // Přechod v 50% scrollu
+                if (p > 0.5) {
+                    body.classList.add('light-mode');
+                } else {
+                    body.classList.remove('light-mode');
+                }
+
+                // B. ANIMACE LAMPY
+                // Vertikální pohyb: Začíná dole (+150px), končí nahoře (-50px)
+                const moveY = (1 - p) * 150 - 50;
+                
+                // Rotace (Parallax + jemná rotace při scrollu)
+                // Na mobilu rotaci omezíme na 0
+                const rotateX = isMobile ? 0 : -mouseY * 5;
+                const rotateY = isMobile ? 0 : mouseX * 5;
+                const scale = isMobile ? 0.7 : 1; // Menší na mobilu
+
+                lampWrapper.style.transform = `
+                    translateY(${moveY}px) 
+                    rotateX(${rotateX}deg) 
+                    rotateY(${rotateY}deg)
+                    scale(${scale})
+                `;
+
+                // C. SVĚTLO (INTENZITA A TEPLOTA)
+                let intensity = 0;
+                
+                // Světlo začíná svítit od 10%
+                if (p > 0.1) {
+                    intensity = Math.min(1, (p - 0.1) * 1.5);
+                }
+
+                // Barva světla
+                if (p < 0.6) {
+                    // Warm (Večerní)
+                    vLight.style.background = `radial-gradient(ellipse at top, rgba(255, 200, 140, ${intensity * 0.6}), transparent 70%)`;
+                    bulb.style.boxShadow = `0 0 30px 5px rgba(255, 200, 140, ${intensity})`;
+                } else {
+                    // Cool (Focus)
+                    vLight.style.background = `radial-gradient(ellipse at top, rgba(210, 230, 255, ${intensity * 0.8}), transparent 70%)`;
+                    bulb.style.boxShadow = `0 0 50px 10px rgba(210, 230, 255, ${intensity})`;
+                }
+
+                vLight.style.opacity = intensity;
+                bulb.style.opacity = intensity;
+
+                // D. TEXTOVÉ BLOKY (Timing)
+                updateBlock(blocks[0], p, 0.0, 0.15); // Intro
+                updateBlock(blocks[1], p, 0.25, 0.40); // Product
+                updateBlock(blocks[2], p, 0.50, 0.70); // Focus
+                updateBlock(blocks[3], p, 0.80, 1.0);  // CTA
+
+                // E. PROGRESS BAR
+                progressBar.style.width = `${p * 100}%`;
+            }
+
+            // Pomocná funkce pro zobrazení/skrytí textu
+            function updateBlock(el, p, start, end) {
+                // Přidáme malý offset pro fade in/out
+                const fadeIn = start + 0.02;
+                const fadeOut = end - 0.02;
+
+                if (p > fadeIn && p < fadeOut) {
+                    el.classList.remove('inactive');
+                    el.classList.add('active');
+                } else {
+                    el.classList.remove('active');
+                    el.classList.add('inactive');
+                }
+            }
+
+            // Spuštění
+            animate();
+        });
+    </script>
+</body>
+</html>

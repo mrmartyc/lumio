@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Produkty | LUMIO</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+    <link rel="manifest" href="site.webmanifest">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #050505; --card: #151515; --text: #fff; --font: 'Manrope', sans-serif; }
+        body { background: var(--bg); color: var(--text); font-family: var(--font); margin: 0; }
+        
+        nav { padding: 20px 40px; display: flex; justify-content: space-between; border-bottom: 1px solid #222; }
+        
+        .header { padding: 60px 40px; }
+        h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; padding: 0 40px 40px; }
+        
+        .product-card { background: var(--card); border-radius: 16px; overflow: hidden; transition: 0.3s; border: 1px solid #222; position: relative; }
+        .product-card:hover { transform: translateY(-5px); border-color: #444; }
+        
+        .img-placeholder { height: 250px; background: linear-gradient(45deg, #1a1a1a, #000); display: flex; align-items: center; justify-content: center; color: #333; }
+        
+        .details { padding: 20px; }
+        .price { float: right; font-weight: 700; }
+        .name { font-weight: 600; font-size: 1.1rem; display: block; margin-bottom: 5px; }
+        .desc { color: #888; font-size: 0.9rem; }
+
+        .badge { position: absolute; top: 15px; left: 15px; background: #fff; color: #000; padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+        .badge.new { background: #2997ff; color: #fff; }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html" style="font-weight:700; color:#fff; text-decoration:none">LUMIO.</a><a href="index.html" style="color:#888; text-decoration:none">Domů</a></nav>
+
+    <div class="header">
+        <h1>Všechny produkty</h1>
+        <p style="color:#888">Od ikonických lamp po nezbytné doplňky.</p>
+    </div>
+
+    <div class="grid">
+        <div class="product-card">
+            <div class="badge">Bestseller</div>
+            <div class="img-placeholder">LUMIO ONE</div>
+            <div class="details">
+                <span class="price">$299</span>
+                <span class="name">Lumio One</span>
+                <span class="desc">Vlajková loď. Inteligentní stolní lampa.</span>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="badge new">Novinka</div>
+            <div class="img-placeholder" style="background: radial-gradient(circle, #222, #000);">LUMIO AIR</div>
+            <div class="details">
+                <span class="price">$199</span>
+                <span class="name">Lumio Air</span>
+                <span class="desc">Ultralehká lampa na monitor (Screenbar).</span>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="img-placeholder" style="background: #111;">DESK MAT</div>
+            <div class="details">
+                <span class="price">$49</span>
+                <span class="name">Wool Desk Mat</span>
+                <span class="desc">Plstěná podložka z merino vlny.</span>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="img-placeholder" style="background: #111;">CABLE KIT</div>
+            <div class="details">
+                <span class="price">$29</span>
+                <span class="name">Cable Organizer</span>
+                <span class="desc">Magnetický systém vedení kabelů.</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

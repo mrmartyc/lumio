@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>O nás | LUMIO</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+    <link rel="manifest" href="site.webmanifest">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #050505; --text: #fff; --accent: #2997ff; --font: 'Manrope', sans-serif; }
+        body { background: var(--bg); color: var(--text); font-family: var(--font); margin: 0; line-height: 1.6; }
+        
+        nav { padding: 20px 40px; display: flex; justify-content: space-between; border-bottom: 1px solid #222; }
+        a { color: inherit; text-decoration: none; }
+        
+        .hero { padding: 100px 20px; text-align: center; max-width: 800px; margin: 0 auto; }
+        h1 { font-size: 3.5rem; letter-spacing: -1px; margin-bottom: 20px; }
+        .lead { font-size: 1.2rem; color: #888; }
+
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; padding: 40px; max-width: 1200px; margin: 0 auto; }
+        .member { background: #111; padding: 30px; border-radius: 12px; border: 1px solid #222; }
+        .member h3 { margin-bottom: 5px; }
+        .role { color: var(--accent); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        .careers { background: #111; padding: 80px 20px; margin-top: 80px; }
+        .job-item { display: flex; justify-content: space-between; border-bottom: 1px solid #333; padding: 20px 0; align-items: center; max-width: 800px; margin: 0 auto; }
+        .job-item:hover { border-color: #fff; }
+        .apply-btn { border: 1px solid #fff; padding: 8px 20px; border-radius: 20px; transition: 0.3s; }
+        .apply-btn:hover { background: #fff; color: #000; }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html" style="font-weight:700">LUMIO.</a><a href="index.html">Zpět</a></nav>
+
+    <div class="hero">
+        <h1>Designujeme světlo,<br>ne lampy.</h1>
+        <p class="lead">Lumio vzniklo v roce 2020 v Praze s jednoduchou myšlenkou: Většina lidí tráví 8 hodin denně pod špatným osvětlením. Rozhodli jsme se to změnit.</p>
+    </div>
+
+    <div class="team-grid">
+        <div class="member">
+            <div class="role">Founder & CEO</div>
+            <h3>Alexandr Novotný</h3>
+            <p style="color:#666; font-size:0.9rem">Bývalý architekt, který vyměnil beton za fotony.</p>
+        </div>
+        <div class="member">
+            <div class="role">Head of Design</div>
+            <h3>Eva Křížová</h3>
+            <p style="color:#666; font-size:0.9rem">Minimalismus není o tom mít málo. Je o tom mít jen to podstatné.</p>
+        </div>
+        <div class="member">
+            <div class="role">CTO</div>
+            <h3>David Černý</h3>
+            <p style="color:#666; font-size:0.9rem">Hardware je těžký. Proto ho milujeme.</p>
+        </div>
+    </div>
+
+    <div class="careers">
+        <div class="hero" style="padding: 0 0 40px 0;">
+            <h2>Přidej se k nám</h2>
+            <p style="color:#888">Hledáme lidi, kteří vidí věci jinak.</p>
+        </div>
+        <div class="job-item">
+            <div><strong>Senior Embedded Engineer</strong><br><span style="color:#666; font-size:0.9rem">Praha / Remote</span></div>
+            <a href="#" class="apply-btn">Aplikovat</a>
+        </div>
+        <div class="job-item">
+            <div><strong>Product Designer</strong><br><span style="color:#666; font-size:0.9rem">Praha</span></div>
+            <a href="#" class="apply-btn">Aplikovat</a>
+        </div>
+        <div class="job-item">
+            <div><strong>Marketing Lead</strong><br><span style="color:#666; font-size:0.9rem">Remote</span></div>
+            <a href="#" class="apply-btn">Aplikovat</a>
+        </div>
+    </div>
+</body>
+</html>
